@@ -1160,6 +1160,12 @@ test_dbus_peer_subscriptions (void)
 #else
   PeerConnection peer;
 
+  if (g_getenv ("DEB_ALLOW_FLAKY_TESTS") == NULL)
+    {
+      g_test_skip ("Not reliable? #932678");
+      return;
+    }
+
   peer_connection_up (&peer);
   do_subscriptions (peer.server_connection, peer.client_connection);
   peer_connection_down (&peer);
