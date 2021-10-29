@@ -1799,6 +1799,12 @@ test_replace (gconstpointer test_data)
     };
   gsize i;
 
+  if (g_getenv ("DEB_ALLOW_FLAKY_TESTS") == NULL)
+    {
+      g_test_skip ("Not reliable on docker");
+      return;
+    }
+
   g_test_summary ("Test various situations for g_file_replace()");
 
   /* Reset the umask after querying it above. There’s no way to query it without
